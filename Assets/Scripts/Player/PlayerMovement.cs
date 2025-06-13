@@ -8,9 +8,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float accelerationSpeed = 3.0f;
     [SerializeField] float decelerationSpeed = 5.0f;
 
+    [Space(5)]
+
+    [Header("Gravity Settings")]
+
+    [SerializeField] float maxGravitySpeed = -10.0f;
+    [SerializeField] float gravityAcceleration = -5.0f;
+   
+
     // Private movement variables
 
     float _currentSpeed = 0.0f;
+    float _currentGravity = 0.0f;
 
     // Cached Components
 
@@ -39,11 +48,24 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 inputDirection = new Vector3(inputVec.x, 0.0f, inputVec.y).normalized;
         Vector3 movement = transform.right * inputDirection.x + transform.forward * inputDirection.z;
+        Vector3 finalInputMovement = movement.normalized * (_currentSpeed * Time.deltaTime);
 
-        characterController.Move(movement.normalized * (_currentSpeed * Time.deltaTime));
+        Vector3 finalMovement = finalInputMovement += (HandleGravity() * Time.deltaTime);
+
+        characterController.Move(finalMovement);
+
+        //characterController.Move(movement.normalized * (_currentSpeed * Time.deltaTime));
     }
-    
 
-    
+
+    Vector3 HandleGravity()
+    {
+       
+        Vector3 gravityVec = new Vector3(0.0f, maxGravitySpeed, 0.0f);
+
+        return gravityVec;
+    }
+
+
 
 }

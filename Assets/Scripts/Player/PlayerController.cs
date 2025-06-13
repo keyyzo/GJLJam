@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     PlayerInputs playerInputs;
     PlayerMovement playerMovement;
     PlayerAiming playerAiming;
+    PlayerActiveAttack playerActiveAttack;
 
 
     private void Awake()
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement.HandleMovement(playerInputs.Move);
         playerAiming.ProcessAiming(playerInputs.Aim);
+        playerActiveAttack.HandleAttack(playerInputs.Attack);
     }
 
     void InitializePlayerComponents()
@@ -29,5 +31,6 @@ public class PlayerController : MonoBehaviour
         playerInputs = GetComponent<PlayerInputs>();
         playerMovement = GetComponent<PlayerMovement>();
         playerAiming = GetComponent<PlayerAiming>();
+        playerActiveAttack = GetComponentInChildren<PlayerActiveAttack>();
     }
 }

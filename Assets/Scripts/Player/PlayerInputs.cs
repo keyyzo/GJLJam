@@ -43,7 +43,17 @@ public class PlayerInputs : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        attack = context.ReadValue<bool>();
+        //if (context.performed)
+        //{
+        //    attack = true;
+        //}
+
+        //if(context.canceled)
+        //{
+        //    attack = false;
+        //}
+
+        attack = context.ReadValueAsButton();
     }
 
     public void OnInteract(InputAction.CallbackContext context)
