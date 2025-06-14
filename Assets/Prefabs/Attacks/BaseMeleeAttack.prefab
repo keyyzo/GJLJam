@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 9158051459858009790}
   - component: {fileID: 3592540851305127731}
   - component: {fileID: 1479911752873176321}
+  - component: {fileID: 9067934500006814498}
   m_Layer: 0
   m_Name: BaseMeleeAttack
   m_TagString: Untagged
@@ -82,7 +83,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 2
@@ -127,6 +128,33 @@ MonoBehaviour:
   attackDamage: 100
   meleeAnimator: {fileID: 3592540851305127731}
   meleeAttackRate: 0.5
+--- !u!54 &9067934500006814498
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3516242738452275220}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &7618969004020856852
 GameObject:
   m_ObjectHideFlags: 0
