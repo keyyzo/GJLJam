@@ -6,6 +6,7 @@ public class SimpleRangeAttack : BaseAttack
 
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
+    
 
     [Space(5)]
 
@@ -18,20 +19,57 @@ public class SimpleRangeAttack : BaseAttack
 
     // Private variables
 
+    Transform playerAimPoint;
+
     float _rangeAttackTimer = 0.0f;
 
     bool _canAttack = true;
 
+    private void Start()
+    {
+        playerAimPoint = GameObject.Find("AimPointer").transform;
+    }
+
+    private void Update()
+    {
+        RangeAttackReset();
+    }
+
     public override void Attack()
     {
         if (_canAttack)
-        { 
-            
+        {
+            FireProjectile();
+            _canAttack = false;
+            currentAmmo -= 1;
         }
     }
 
     void FireProjectile()
-    { 
-        
+    {
+        Vector3 newAimPoint = new Vector3(playerAimPoint.position.x, transform.position.y, playerAimPoint.position.z);
+        Vector3 tempProjectileDirection = newAimPoint - transform.position;
+
+        //transform.LookAt(newAimPoint);
+
+        Projectile newProjectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<Projectile>();
+        newProjectile?.ProcessProjectile(projectileSpeed, tempProjectileDirection, attackDamage);
+    }
+
+    void RangeAttackReset()
+    {
+        if (!_canAttack && currentAmmo > 0)
+        {
+            if (_rangeAttackTimer < rangeRateOfFire)
+            {
+                _rangeAttackTimer += Time.deltaTime;
+            }
+
+            else
+            {
+                _rangeAttackTimer = 0.0f;
+                _canAttack = true;
+            }
+        }
     }
 }
