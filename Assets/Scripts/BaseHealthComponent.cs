@@ -4,9 +4,9 @@ public class BaseHealthComponent : MonoBehaviour, IDamageable<int>, IKillable
 {
     [Header("Health Settings")]
 
-    [SerializeField] int maxHealth = 100;
-    [SerializeField] int minHealth = 0;
-    [SerializeField] int currentHealth;
+    [SerializeField] protected int maxHealth = 100;
+    [SerializeField] protected int minHealth = 0;
+    [SerializeField] protected int currentHealth;
 
     // private variables
 
@@ -21,7 +21,7 @@ public class BaseHealthComponent : MonoBehaviour, IDamageable<int>, IKillable
     }
 
 
-    int SetDefaultHealth(int currentMaxHealth)
+    protected int SetDefaultHealth(int currentMaxHealth)
     {
         if (currentMaxHealth > 0)
             return currentMaxHealth;
@@ -32,7 +32,7 @@ public class BaseHealthComponent : MonoBehaviour, IDamageable<int>, IKillable
     }
 
 
-    public void ProcessDamage(int damageTaken)
+    public virtual void ProcessDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
 
@@ -44,7 +44,7 @@ public class BaseHealthComponent : MonoBehaviour, IDamageable<int>, IKillable
         }
     }
 
-    public void ProcessKill()
+    public virtual void ProcessKill()
     {
         Destroy(this.gameObject);
     }
