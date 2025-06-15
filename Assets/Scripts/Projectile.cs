@@ -31,9 +31,13 @@ public class Projectile : MonoBehaviour
         damageToDeal = damage;
 
         //Vector3 finalVelocity = new Vector3(projectileDirection.x * projectileSpeed, projectileDirection.y * projectileSpeed, projectileDirection.z * projectileSpeed);
+
         Vector3 finalVelocity = projectileDirection.normalized * projectileSpeed;
+
         //rb.AddForce(projectileDirection * (projectileSpeed * Time.deltaTime), ForceMode.Impulse);
+
         rb.AddForce(finalVelocity * Time.deltaTime, ForceMode.Impulse);
+
         //rb.linearVelocity = (projectileDirection * Time.deltaTime) * projectileSpeed;
         //rb.linearVelocity = finalVelocity * Time.deltaTime;
     }
@@ -50,7 +54,13 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Destroy(gameObject);
+        if (other.TryGetComponent(out IDamageable<int> damageableEntity))
+        {
+            damageableEntity.ProcessDamage(damageToDeal);
+        }
+
+
+        Destroy(gameObject);
     }
 
 }

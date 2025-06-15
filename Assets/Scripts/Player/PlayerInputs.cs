@@ -26,7 +26,8 @@ public class PlayerInputs : MonoBehaviour
 
     private void Start()
     {
-        SetCursorState(true);
+        SetCursorState(CursorLocked);
+        SetCursorHidden(false);
     }
 
     #region Callback Functions
@@ -64,8 +65,14 @@ public class PlayerInputs : MonoBehaviour
     #endregion
 
 
-    void SetCursorState(bool newState)
+    public void SetCursorState(bool newState)
     {
         CursorLocked = newState;
+        Cursor.lockState = newState ? CursorLockMode.Confined : CursorLockMode.None;
+    }
+
+    public void SetCursorHidden(bool newState)
+    { 
+        Cursor.visible = newState;
     }
 }

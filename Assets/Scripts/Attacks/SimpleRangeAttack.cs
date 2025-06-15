@@ -45,6 +45,16 @@ public class SimpleRangeAttack : BaseAttack
         }
     }
 
+    public void AdjustAmmo(int amount)
+    {
+        currentAmmo += amount;
+
+        if (currentAmmo > maxAmmo)
+        { 
+            currentAmmo = maxAmmo;
+        }
+    }
+
     void FireProjectile()
     {
         Vector3 newAimPoint = new Vector3(playerAimPoint.position.x, transform.position.y, playerAimPoint.position.z);

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     PlayerMovement playerMovement;
     PlayerAiming playerAiming;
     PlayerActiveAttack playerActiveAttack;
+    PlayerInventory playerInventory;
 
 
     private void Awake()
@@ -32,5 +33,6 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerAiming = GetComponent<PlayerAiming>();
         playerActiveAttack = GetComponentInChildren<PlayerActiveAttack>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 }
