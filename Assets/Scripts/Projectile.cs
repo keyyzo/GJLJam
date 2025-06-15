@@ -44,12 +44,14 @@ public class Projectile : MonoBehaviour
 
     void HandleProjectileLife()
     { 
-        projectileLifetimer += Time.deltaTime;
+        //projectileLifetimer += Time.deltaTime;
 
-        if (projectileLifetimer >= maxProjectileLife)
-        {
-            Destroy(gameObject);
-        }
+        //if (projectileLifetimer >= maxProjectileLife)
+        //{
+        //    Destroy(gameObject);
+        //}
+
+        Destroy(gameObject, maxProjectileLife);
     }
 
     private void OnTriggerEnter(Collider other)

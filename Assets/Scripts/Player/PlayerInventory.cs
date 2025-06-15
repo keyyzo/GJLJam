@@ -60,13 +60,17 @@ public class PlayerInventory : MonoBehaviour
     public void ReceiveAmmo(int ammoAmountToReceive)
     {
         if (ammoAmountToReceive > 0)
-        { 
+        {
+            Debug.Log("Amount of ammo picked up: " + ammoAmountToReceive);
+
             currentAmmoAmount += ammoAmountToReceive;
 
             if (currentAmmoAmount > maxAmmoAmount)
             { 
                 currentAmmoAmount = maxAmmoAmount;
             }
+
+            Debug.Log("Current ammo in inventory: " + currentAmmoAmount);
         }
     }
 
