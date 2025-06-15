@@ -75,7 +75,9 @@ public class SimpleRangeAttack : BaseAttack
         if (!_isReloading && currentAmmoInClip < maxClipSize && playerInventory.CurrentAmmoAmount > 0)
         {
             Debug.Log("Reloading...");
-            playerInventory.ReloadAttackAmmo(currentAmmoInClip, maxClipSize);
+            _isReloading = true;
+            //playerInventory.ReloadAttackAmmo(currentAmmoInClip, maxClipSize);
+            currentAmmoInClip += playerInventory.ReloadAttackAmmo(currentAmmoInClip, maxClipSize);
         }
 
         else

@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b234085fed15a5a4384c0044e99a8111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starterAttack: {fileID: 1479911752873176321, guid: b1e86ded93974234e978df9385ed38a2, type: 3}
+  starterAttack: {fileID: 1849841772294749382, guid: 196b001e98dffc341958f82f7379d297, type: 3}
 --- !u!1 &3746809178633711962
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,6 +515,7 @@ MonoBehaviour:
   aim: {x: 0, y: 0}
   attack: 0
   interact: 0
+  reload: 0
   CursorLocked: 1
 --- !u!114 &5569537269346456331
 MonoBehaviour:
@@ -649,6 +650,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 63c46a9e-0017-4045-8be2-f53d288378b2
     m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1902633422837410235}
+        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
+        m_MethodName: OnReload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 085a0d5a-6bfb-4607-9cd0-2fccbd39cf09
+    m_ActionName: 'Player/Reload[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -666,7 +683,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251d4263db8037d448b011add3e2a736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceAmount: 0
+  currentResourceAmount: 0
+  maxAmmoAmount: 200
+  currentAmmoAmount: 200
 --- !u!114 &5663558885574204948
 MonoBehaviour:
   m_ObjectHideFlags: 0

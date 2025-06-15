@@ -70,22 +70,28 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void ReloadAttackAmmo(int currentClipAmount, int maxClipAmount)
+    public int ReloadAttackAmmo(int currentClipAmount, int maxClipAmount)
     {
 
-        if (currentAmmoAmount > 0)
-        {
-            int ammoToReload = Mathf.Min(maxClipAmount - currentClipAmount, currentAmmoAmount);
-            currentClipAmount += ammoToReload;
-            currentAmmoAmount -= ammoToReload;
-        }
 
-        else
-        {
-            return;
-        }
+        //if (currentAmmoAmount > 0)
+        //{
+        //    int ammoToReload = Mathf.Min(maxClipAmount - currentClipAmount, currentAmmoAmount);
+        //    currentClipAmount += ammoToReload;
+        //    currentAmmoAmount -= ammoToReload;
+        //}
 
-        
+        //else
+        //{
+        //    return;
+        //}
+
+        int ammoToReload = Mathf.Min(maxClipAmount - currentClipAmount, currentAmmoAmount);
+        currentAmmoAmount -= ammoToReload;
+
+        return ammoToReload;
+
+
     }
 
     #endregion
