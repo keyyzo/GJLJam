@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5119612395206105735}
   - component: {fileID: 539897043471819798}
   - component: {fileID: 28853859433170567}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1610863130200563401}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 125036558760873067}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3407391889661317697}
   - component: {fileID: 1849841772294749382}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRangeAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

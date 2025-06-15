@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     PlayerAiming playerAiming;
     PlayerActiveAttack playerActiveAttack;
     PlayerInventory playerInventory;
+    PlayerInteractor playerInteractor;
 
 
     private void Awake()
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
         playerMovement.HandleMovement(playerInputs.Move);
         playerAiming.ProcessAiming(playerInputs.Aim);
         playerActiveAttack.HandleAttack(playerInputs.Attack);
+        playerInteractor.SetInteracting(playerInputs.Interact);
     }
 
     void InitializePlayerComponents()
@@ -34,5 +36,6 @@ public class PlayerController : MonoBehaviour
         playerAiming = GetComponent<PlayerAiming>();
         playerActiveAttack = GetComponentInChildren<PlayerActiveAttack>();
         playerInventory = GetComponent<PlayerInventory>();
+        playerInteractor = GetComponent<PlayerInteractor>();
     }
 }

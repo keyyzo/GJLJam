@@ -59,7 +59,7 @@ public class PlayerInputs : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        interact = context.ReadValue<bool>();
+        interact = context.ReadValueAsButton();
     }
 
     #endregion

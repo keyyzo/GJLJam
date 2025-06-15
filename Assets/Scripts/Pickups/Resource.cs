@@ -12,6 +12,17 @@ public class Resource : MonoBehaviour, IPickup, IKillable
 
     [SerializeField] protected float rotationSpeed = 5.0f;
 
+
+    // Cached components
+
+    Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+
     private void Update()
     {
         RotateResourceOnSpot();
