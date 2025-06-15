@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
         playerMovement.HandleMovement(playerInputs.Move);
         playerAiming.ProcessAiming(playerInputs.Aim);
         playerActiveAttack.HandleAttack(playerInputs.Attack);
+        playerActiveAttack.ReloadAttack(playerInputs.Reload);
         playerInteractor.SetInteracting(playerInputs.Interact);
+        
     }
 
     void InitializePlayerComponents()

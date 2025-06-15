@@ -1,13 +1,24 @@
+using System;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] int resourceAmount = 0;
+    [Header("Resource Attributes")]
+
+    [SerializeField] int currentResourceAmount = 0;
+
+    [Space(5)]
+
+    [Header("Ammo Attributes")]
+
+    [SerializeField] int maxAmmoAmount = 999;
+    [SerializeField] int currentAmmoAmount = 0;
 
 
     // public properties
 
-    public int ResourceAmount => resourceAmount;
+    public int CurrentResourceAmount => currentResourceAmount;
+    public int CurrentAmmoAmount => currentAmmoAmount;
 
     // Cached Components
 
@@ -25,21 +36,56 @@ public class PlayerInventory : MonoBehaviour
     {
         if (amountToReceive > 0)
         {
-            resourceAmount += amountToReceive;
+            currentResourceAmount += amountToReceive;
 
-            Debug.Log("Updated total amount of resource: " + resourceAmount);
+            Debug.Log("Updated total amount of resource: " + currentResourceAmount);
         }
         
     }
 
     public void SpendResource(int amountToSpend)
     {
-        if (resourceAmount >= amountToSpend)
+        if (currentResourceAmount >= amountToSpend)
         { 
-            resourceAmount -= amountToSpend;
+            currentResourceAmount -= amountToSpend;
 
-            Debug.Log("Updated total amount of resource: " + resourceAmount);
+            Debug.Log("Updated total amount of resource: " + currentResourceAmount);
         }
+    }
+
+    #endregion
+
+    #region Ammo Methods
+
+    public void ReceiveAmmo(int ammoAmountToReceive)
+    {
+        if (ammoAmountToReceive > 0)
+        { 
+            currentAmmoAmount += ammoAmountToReceive;
+
+            if (currentAmmoAmount > maxAmmoAmount)
+            { 
+                currentAmmoAmount = maxAmmoAmount;
+            }
+        }
+    }
+
+    public void ReloadAttackAmmo(int currentClipAmount, int maxClipAmount)
+    {
+
+        if (currentAmmoAmount > 0)
+        {
+            int ammoToReload = Mathf.Min(maxClipAmount - currentClipAmount, currentAmmoAmount);
+            currentClipAmount += ammoToReload;
+            currentAmmoAmount -= ammoToReload;
+        }
+
+        else
+        {
+            return;
+        }
+
+        
     }
 
     #endregion

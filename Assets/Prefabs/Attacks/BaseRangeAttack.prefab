@@ -198,7 +198,8 @@ MonoBehaviour:
   attackDamage: 10
   projectilePrefab: {fileID: 8666793393805596819, guid: 27dd5bb16d0f98542b1cc121d5d11b9e, type: 3}
   projectileSpawnPoint: {fileID: 1610863130200563401}
-  maxAmmo: 999
-  currentAmmo: 30
+  maxClipSize: 30
+  currentAmmoInClip: 30
   rangeRateOfFire: 0.5
   projectileSpeed: 6000
+  timeToReload: 2.5

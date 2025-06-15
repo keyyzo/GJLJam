@@ -34,4 +34,12 @@ public class PlayerActiveAttack : MonoBehaviour
         BaseAttack newInstAttack = Instantiate(newAttack, transform).GetComponent<BaseAttack>();
         currentAttack = newInstAttack;
     }
+
+    public void ReloadAttack(bool reloadInput)
+    {
+        if (reloadInput && currentAttack is SimpleRangeAttack)
+        {
+            currentAttack?.GetComponent<SimpleRangeAttack>().ProcessReload();
+        }
+    }
 }

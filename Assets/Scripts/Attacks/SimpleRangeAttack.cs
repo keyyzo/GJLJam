@@ -12,47 +12,77 @@ public class SimpleRangeAttack : BaseAttack
 
     [Header("Range Attributes")]
 
-    [SerializeField] int maxAmmo = 999;
-    [SerializeField] int currentAmmo = 30;
+    [SerializeField] int maxClipSize = 15;
+    [SerializeField] int currentAmmoInClip = 15;
     [SerializeField] float rangeRateOfFire = 0.5f;
     [SerializeField] float projectileSpeed = 15.0f;
+
+    [Space(5)]
+
+    [Header("Reloading Attributes")]
+
+    [SerializeField] float timeToReload = 2.5f;
 
     // Private variables
 
     Transform playerAimPoint;
 
     float _rangeAttackTimer = 0.0f;
+    float _reloadingTimer = 0.0f;
 
     bool _canAttack = true;
+    bool _isReloading = false;
+
+    // Cached Components
+
+    PlayerInventory playerInventory;
 
     private void Start()
     {
         playerAimPoint = GameObject.Find("AimPointer").transform;
+        playerInventory = GetComponentInParent<PlayerInventory>();
     }
 
     private void Update()
     {
         RangeAttackReset();
+        ReloadTimer();
     }
 
     public override void Attack()
     {
-        if (_canAttack)
+        if (_canAttack && !_isReloading && currentAmmoInClip > 0)
         {
             FireProjectile();
             _canAttack = false;
-            currentAmmo -= 1;
+            currentAmmoInClip -= 1;
+            Debug.Log("Current ammo in clip: " + currentAmmoInClip);
         }
     }
 
-    public void AdjustAmmo(int amount)
+    public void ReloadAmmo(int amount)
     {
-        currentAmmo += amount;
+        currentAmmoInClip += amount;
 
-        if (currentAmmo > maxAmmo)
+        if (currentAmmoInClip > maxClipSize)
         { 
-            currentAmmo = maxAmmo;
+            currentAmmoInClip = maxClipSize;
         }
+    }
+
+    public void ProcessReload()
+    {
+        if (!_isReloading && currentAmmoInClip < maxClipSize && playerInventory.CurrentAmmoAmount > 0)
+        {
+            Debug.Log("Reloading...");
+            playerInventory.ReloadAttackAmmo(currentAmmoInClip, maxClipSize);
+        }
+
+        else
+        {
+            Debug.Log("Can't reload yet");
+        }
+        
     }
 
     void FireProjectile()
@@ -68,7 +98,7 @@ public class SimpleRangeAttack : BaseAttack
 
     void RangeAttackReset()
     {
-        if (!_canAttack && currentAmmo > 0)
+        if (!_canAttack && currentAmmoInClip > 0)
         {
             if (_rangeAttackTimer < rangeRateOfFire)
             {
@@ -82,4 +112,23 @@ public class SimpleRangeAttack : BaseAttack
             }
         }
     }
+
+    void ReloadTimer()
+    {
+        if (_isReloading)
+        {
+            if (_reloadingTimer < timeToReload)
+            {
+                _reloadingTimer += Time.deltaTime;
+            }
+
+            else
+            { 
+                _reloadingTimer = 0.0f;
+                _isReloading = false;
+            }
+        }
+    }
+
+
 }

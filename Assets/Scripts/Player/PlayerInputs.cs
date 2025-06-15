@@ -18,6 +18,9 @@ public class PlayerInputs : MonoBehaviour
     [SerializeField] bool interact;
     public bool Interact => interact;
 
+    [SerializeField] bool reload;
+    public bool Reload => reload;   
+
     [Space(10)]
 
     [Header("Mouse Cursor Settings")]
@@ -60,6 +63,11 @@ public class PlayerInputs : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
         interact = context.ReadValueAsButton();
+    }
+
+    public void OnReload(InputAction.CallbackContext context)
+    { 
+        reload = context.ReadValueAsButton();
     }
 
     #endregion
