@@ -24,7 +24,7 @@ public class DynamicLootContainer : DestroyableLootContainer, IInteractable
     {
         Debug.Log("Attempting to loot...");
 
-        if (canInteract && this.gameObject != null)
+        if (canInteract && (UnityEngine.Object)this != null)
         {
             interactTimer += Time.deltaTime;
 
@@ -85,13 +85,15 @@ public class DynamicLootContainer : DestroyableLootContainer, IInteractable
 
                 Resource resourceToSpawn = Instantiate(resourcePrefab, tempSpawnPos, Quaternion.identity).GetComponent<Resource>();
 
-
+                canInteract = false;
+                
             }
         }
 
         ProcessKill();
     }
 
+    
 
     private void OnTriggerEnter(Collider other)
     {

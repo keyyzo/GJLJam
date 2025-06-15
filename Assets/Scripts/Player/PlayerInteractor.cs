@@ -14,16 +14,14 @@ public class PlayerInteractor : MonoBehaviour
     private void Update()
     {
         HandleInteraction();
+       // Debug.Log(currentInteractable.ToString());
     }
 
     void HandleInteraction()
     {
-        if (currentInteractable != null)
+        if ((Component)currentInteractable != null && isInteracting)
         {
-            if (isInteracting)
-            {
-                currentInteractable.ProcessInteract();
-            }
+            currentInteractable.ProcessInteract();
         }
     }
 
