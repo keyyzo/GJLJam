@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DynamicLootContainer : DestroyableLootContainer, IInteractable
 {
     [Header("Interactable References")]
 
     [SerializeField] GameObject promptedText;
+    [SerializeField] GameObject progressBarCanvas;
+    [SerializeField] Image progressSlider;
 
     [Space(5)]
 
@@ -18,7 +21,19 @@ public class DynamicLootContainer : DestroyableLootContainer, IInteractable
     bool interactComplete = false;
 
 
-    
+    private void Start()
+    {
+        promptedText.SetActive(false);
+        progressSlider.fillAmount = 0.0f;
+        progressBarCanvas.SetActive(false);
+        
+    }
+
+    private void Update()
+    {
+        PointPromptTextToCamera();
+    }
+
 
     public void ProcessInteract()
     {
@@ -26,9 +41,17 @@ public class DynamicLootContainer : DestroyableLootContainer, IInteractable
 
         if (canInteract && (UnityEngine.Object)this != null)
         {
+            if (!progressBarCanvas.activeSelf)
+            {
+                progressBarCanvas.SetActive(true);
+            }
+            
+
             interactTimer += Time.deltaTime;
 
             float tempPercentageDone = (interactTimer / timeToCompleteInteractLoot) * 100f;
+
+            progressSlider.fillAmount = tempPercentageDone / 100f;
 
             Debug.Log("Current percentage on interact: " + tempPercentageDone);
 
@@ -47,6 +70,7 @@ public class DynamicLootContainer : DestroyableLootContainer, IInteractable
     {
         if (canInteract)
         {
+            promptedText.SetActive(true);
             Debug.Log("Player has entered interaction area for loot");
         }
     }
@@ -55,6 +79,7 @@ public class DynamicLootContainer : DestroyableLootContainer, IInteractable
     {
         if (!canInteract)
         {
+            promptedText.SetActive(false);
             Debug.Log("Player has left interaction area for loot");
         }
     }
@@ -91,6 +116,20 @@ public class DynamicLootContainer : DestroyableLootContainer, IInteractable
         }
 
         ProcessKill();
+    }
+
+    void PointPromptTextToCamera()
+    {
+        if (promptedText.activeSelf)
+        {
+            promptedText.gameObject.transform.forward = Camera.main.transform.forward;
+        }
+
+        if (progressBarCanvas.activeSelf)
+        {
+            progressBarCanvas.gameObject.transform.forward = Camera.main.transform.forward;
+        }
+
     }
 
     
