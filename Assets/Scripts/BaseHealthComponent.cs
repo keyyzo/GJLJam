@@ -21,7 +21,7 @@ public class BaseHealthComponent : MonoBehaviour, IDamageable<int>, IKillable
     }
 
 
-    protected int SetDefaultHealth(int currentMaxHealth)
+    protected virtual int SetDefaultHealth(int currentMaxHealth)
     {
         if (currentMaxHealth > 0)
             return currentMaxHealth;

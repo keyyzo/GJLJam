@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1727334690766834173}
   - component: {fileID: 3494723605074836527}
   - component: {fileID: 1067075228307829057}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DestroyableLootContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065152289901948413}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 1192569709005919101}
   - component: {fileID: 8451669935491499418}
   - component: {fileID: 8175701074522399271}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

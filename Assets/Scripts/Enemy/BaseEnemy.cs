@@ -1,28 +1,58 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BaseEnemy : MonoBehaviour
 {
-    
+    [Header("Enemy Attributes")]
 
+    [SerializeField] int enemyDamage = 20;
+
+
+    const string PLAYER_STRING = "Player";
 
     // Cached components
 
-    BaseHealthComponent healthComponent;
-
+    NavMeshAgent agent;
+    PlayerController playerObject;
 
     private void Awake()
     {
-        healthComponent = GetComponent<BaseHealthComponent>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
-    void Start()
+    private void Start()
     {
+        playerObject = FindFirstObjectByType<PlayerController>();
+    }
+
+    private void Update()
+    {
+        BasicMoveAgentTowardsPlayer();
+    }
+
+    void BasicMoveAgentTowardsPlayer()
+    { 
+        if(!playerObject)
+            return;
+
+        agent.SetDestination(playerObject.transform.position);
         
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if ((other.CompareTag(PLAYER_STRING)))
+        {
+            Debug.Log("Trigger collided with player");
+
+            if(other.TryGetComponent(out BaseHealthComponent playerHealth))
+            {
+                playerHealth?.ProcessDamage(enemyDamage);
+                Destroy(gameObject);
+            }
+        }
     }
+
+    
 }
