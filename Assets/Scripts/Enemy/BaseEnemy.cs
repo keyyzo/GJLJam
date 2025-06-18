@@ -14,10 +14,12 @@ public class BaseEnemy : MonoBehaviour
 
     NavMeshAgent agent;
     PlayerController playerObject;
+    BaseHealthComponent enemyHealthComponent;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        enemyHealthComponent = GetComponent<BaseHealthComponent>();
     }
 
     private void Start()
@@ -49,7 +51,7 @@ public class BaseEnemy : MonoBehaviour
             if(other.TryGetComponent(out BaseHealthComponent playerHealth))
             {
                 playerHealth?.ProcessDamage(enemyDamage);
-                Destroy(gameObject);
+                enemyHealthComponent.ProcessKill();
             }
         }
     }

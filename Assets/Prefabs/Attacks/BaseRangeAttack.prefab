@@ -195,11 +195,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7918f86bdc3444db1cb00d952721d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 10
+  attackDamage: 51
   projectilePrefab: {fileID: 8666793393805596819, guid: 27dd5bb16d0f98542b1cc121d5d11b9e, type: 3}
   projectileSpawnPoint: {fileID: 1610863130200563401}
   maxClipSize: 30
   currentAmmoInClip: 30
-  rangeRateOfFire: 0.5
+  rangeRateOfFire: 0.4
   projectileSpeed: 6000
   timeToReload: 2.5
