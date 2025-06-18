@@ -7,6 +7,7 @@ public class PlayerAiming : MonoBehaviour
     [SerializeField] float gizmoRadius = 1.0f;
 
     Vector3 collidedTargetPoint;
+    Vector3 worldPos;
 
     public void ProcessAiming(Vector2 aimInput)
     {
@@ -14,8 +15,14 @@ public class PlayerAiming : MonoBehaviour
 
         Ray cameraRay = Camera.main.ScreenPointToRay(aimInput);
 
-        float hitDist = 0.0f;
+        //Vector3 screenPos = new Vector3(aimInput.x, aimInput.y, Camera.main.nearClipPlane);
 
+        //worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+
+        //Debug.DrawLine(cameraRay.origin, worldPos, Color.blue);
+
+        float hitDist = 0.0f;
+        
         if (groundPlane.Raycast(cameraRay, out hitDist))
         { 
             Vector3 targetPoint = cameraRay.GetPoint(hitDist);
@@ -38,5 +45,6 @@ public class PlayerAiming : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(collidedTargetPoint, gizmoRadius);
+        //Gizmos.DrawSphere(worldPos, gizmoRadius);
     }
 }
