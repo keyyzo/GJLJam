@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     PlayerActiveAttack playerActiveAttack;
     PlayerInventory playerInventory;
     PlayerInteractor playerInteractor;
+    PlayerHealth playerHealth;
 
 
     private void Awake()
@@ -39,5 +40,25 @@ public class PlayerController : MonoBehaviour
         playerActiveAttack = GetComponentInChildren<PlayerActiveAttack>();
         playerInventory = GetComponent<PlayerInventory>();
         playerInteractor = GetComponent<PlayerInteractor>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
+
+    public void ProcessMaxHealthUpgrade(int upgradeAmount, int upgradeCost)
+    {
+        playerHealth.UpgradeMaxHealth(upgradeAmount);
+        playerInventory.SpendResource(upgradeCost);
+    }
+
+    public void ProcessHealthPurchase(int healAmount, int healCost)
+    {
+        playerHealth.ProcessHeal(healAmount);
+        playerInventory.SpendResource(healCost);
+    }
+
+    public void ProcessAmmoPurhcase(int ammoAmount, int ammoCost)
+    {
+        playerInventory.ReceiveAmmo(ammoAmount);
+        playerInventory.SpendResource(ammoCost);
+    }
+
 }

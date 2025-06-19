@@ -14,5 +14,15 @@ public class PlayerHealth : BaseHealthComponent, IHealable<int>
         }
     }
 
+
+    public void UpgradeMaxHealth(int upgradeIncrease)
+    {
+        if (upgradeIncrease <= 0)
+            return;
+
+        maxHealth += upgradeIncrease;
+        currentHealth += upgradeIncrease;
+
+    }
    
 }

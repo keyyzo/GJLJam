@@ -34,6 +34,9 @@ public class BaseHealthComponent : MonoBehaviour, IDamageable<int>, IKillable
 
     public virtual void ProcessDamage(int damageTaken)
     {
+        if (damageTaken <= 0)
+            return;
+
         currentHealth -= damageTaken;
 
         Debug.Log(gameObject.name + " Current Health Remaining: " + currentHealth);
