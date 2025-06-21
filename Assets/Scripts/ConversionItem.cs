@@ -1,0 +1,48 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+public class ConversionItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+{
+    [Header("References")]
+
+    [SerializeField] TMP_Text itemName;
+    [SerializeField] TMP_Text itemDescription;
+    [SerializeField] TMP_Text itemCost;
+
+    // private variables
+
+    bool isPointerOverUI = false;
+
+    // public properties
+
+    public bool IsPointerOverUI => isPointerOverUI;
+
+    public Button ItemButton => itemButton;
+
+    public TMP_Text ItemName => itemName;
+
+    // Cached components
+
+    Button itemButton;
+
+    private void Start()
+    {
+        itemButton = GetComponentInChildren<Button>();
+    }
+
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isPointerOverUI = true;
+        Debug.Log("Mouse is hovering over " + itemName);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isPointerOverUI = false;
+        Debug.Log("Mouse has stopped hovering over " + itemName);
+    }
+}

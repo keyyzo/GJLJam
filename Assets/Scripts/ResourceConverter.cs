@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class ResourceConverter : MonoBehaviour, IInteractable
 {
-    [System.Serializable]
-    public class ConversionItem
-    { 
-        public string itemName;
-        public GameObject itemObject;
-        public Button itemButton;
-    }
+    //[System.Serializable]
+    //public class ConversionItem
+    //{ 
+    //    public string itemName;
+    //    public GameObject itemObject;
+    //    public Button itemButton;
+    //}
 
 
 
@@ -27,9 +28,9 @@ public class ResourceConverter : MonoBehaviour, IInteractable
 
     [Header("Conversion Item References")]
 
-    [SerializeField] GameObject healthDropItem;
-    [SerializeField] GameObject ammoDropItem;
-    [SerializeField] GameObject maxHealthIncreaseItem;
+    [SerializeField] ConversionItem healthDropItem;
+    [SerializeField] ConversionItem ammoDropItem;
+    [SerializeField] ConversionItem maxHealthIncreaseItem;
 
     [Space(5)]
 
@@ -52,6 +53,7 @@ public class ResourceConverter : MonoBehaviour, IInteractable
 
     bool canInteract = false;
     bool isMenuActive = false;
+    bool isConversionItemActive = false;
 
     // Cached components
 
@@ -77,6 +79,7 @@ public class ResourceConverter : MonoBehaviour, IInteractable
     private void Update()
     {
         PointPromptTextToCamera();
+        SetConversionItemActive();
     }
 
     #region Prompt Functions
@@ -131,30 +134,131 @@ public class ResourceConverter : MonoBehaviour, IInteractable
 
 
     void InitializeConversionItems()
-    { 
-        ConversionItem healthItem = new ConversionItem { itemName = "HealthItem", itemObject = healthDropItem, itemButton = healthDropItem.GetComponentInChildren<Button>() };
+    {
+        conversionItems.Add(healthDropItem);
+        //conversionItems.Add(ammoDropItem);
+        //conversionItems.Add(maxHealthIncreaseItem);
+    }
 
-        conversionItems.Add(healthItem);
+
+    void SetActiveConversionItem()
+    {
+        if (!isConversionItemActive && activeItem == null)
+        {
+            foreach (var item in conversionItems)
+            {
+                if (item.IsPointerOverUI)
+                {
+                    activeItem = item;
+                    Debug.Log("Active Conversion Item Set");
+                    isConversionItemActive = true;
+                }
+
+                else
+                {
+                    Debug.Log("Active Conversion Item Removed");
+                    isConversionItemActive = false;
+                }
+            }
+        }
+
+        else
+        {
+            activeItem.ItemButton.onClick.RemoveAllListeners();
+
+            if (activeItem == healthDropItem)
+            {
+                Debug.Log("Healing Item Acquired");
+                activeItem.ItemButton.onClick.AddListener(OnHealthItemAdd);
+            }
+
+            else if (activeItem == ammoDropItem)
+            {
+                Debug.Log("Ammo Item Acquired");
+                activeItem.ItemButton.onClick.AddListener(OnAmmoItemAdd);
+            }
+
+            else if (activeItem == maxHealthIncreaseItem)
+            {
+                Debug.Log("Max Healing Increase Item Acquired");
+                activeItem.ItemButton.onClick.AddListener(OnMaxHealthIncrease);
+            }
+        }
+    }
+
+    void SetConversionItemActive()
+    {
+        foreach (var item in conversionItems)
+        {
+            if (item.IsPointerOverUI && activeItem == null)
+            {
+                activeItem = item;
+                isConversionItemActive = true;
+                Debug.Log("Active Conversion Item Set");
+            }
+
+            else
+            {
+                activeItem?.ItemButton.onClick.RemoveAllListeners();
+                activeItem = null;
+                isConversionItemActive = false;
+                Debug.Log("Active Conversion Item Removed");
+            }
+        }
+
+        if (activeItem != null)
+        {
+            activeItem.ItemButton.onClick.RemoveAllListeners();
+
+            if (activeItem == healthDropItem)
+            {
+                Debug.Log("Healing Item Set as Active Item");
+                activeItem.ItemButton.onClick.AddListener(OnHealthItemAdd);
+            }
+
+            else if (activeItem == ammoDropItem)
+            {
+                Debug.Log("Ammo Item Set as Active Item");
+                activeItem.ItemButton.onClick.AddListener(OnAmmoItemAdd);
+            }
+
+            else if (activeItem == maxHealthIncreaseItem)
+            {
+                Debug.Log("Max Health Increase Item Set as Active Item");
+                activeItem.ItemButton.onClick.AddListener(OnMaxHealthIncrease);
+            }
+        }
+
+        //else
+        //{
+        //    Debug.Log("Removed listeners on Active Item");
+        //    activeItem.ItemButton.onClick.RemoveAllListeners();
+        //}
     }
 
     
 
+
     void OnHealthItemAdd()
     {
-        playerObject.ProcessHealthPurchase(healthToReceive, healthCost);
+        if(playerObject.GetCurrentResourceAmount() >= healthCost)
+            playerObject.ProcessHealthPurchase(healthToReceive, healthCost);
+
     }
 
     void OnMaxHealthIncrease()
     {
-        playerObject.ProcessMaxHealthUpgrade(maxHealthIncreaseToReceive, maxHealthIncreaseCost);
+        if(playerObject.GetCurrentResourceAmount() >= maxHealthIncreaseCost)
+            playerObject.ProcessMaxHealthUpgrade(maxHealthIncreaseToReceive, maxHealthIncreaseCost);
     }
 
     void OnAmmoItemAdd()
     { 
-        playerObject.ProcessAmmoPurhcase(ammoToReceive, ammoCost);
+        if(playerObject.GetCurrentResourceAmount() >= ammoCost)
+            playerObject.ProcessAmmoPurhcase(ammoToReceive, ammoCost);
     }
 
-
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -185,4 +289,19 @@ public class ResourceConverter : MonoBehaviour, IInteractable
         }
     }
 
+
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    if (eventData.pointerEnter.transform.gameObject == conversionItems[0].itemObject)
+    //    {
+    //        activeItem = conversionItems[0];
+    //        activeItem.itemButton.onClick.AddListener(OnHealthItemAdd);
+    //        Debug.Log("Button Ready!");
+    //    }
+    //}
+
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    activeItem = null;
+    //}
 }

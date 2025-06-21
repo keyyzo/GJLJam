@@ -3225,6 +3225,7 @@ GameObject:
   - component: {fileID: 1766119995}
   - component: {fileID: 1766119994}
   - component: {fileID: 1766119993}
+  - component: {fileID: 1766119996}
   m_Layer: 15
   m_Name: HealthDropPanel
   m_TagString: Untagged
@@ -3312,6 +3313,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766119991}
   m_CullTransparentMesh: 1
+--- !u!114 &1766119996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766119991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1cfe3a3dea6760459a77e426f8f35f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: {fileID: 2104058511}
+  itemDescription: {fileID: 11941892}
+  itemCost: {fileID: 2056115851}
 --- !u!1 &1794882582
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,9 +4277,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptedText: {fileID: 879212532}
   converterMenu: {fileID: 766383075}
-  healthDropItem: {fileID: 0}
+  healthDropItem: {fileID: 1766119996}
   ammoDropItem: {fileID: 0}
   maxHealthIncreaseItem: {fileID: 0}
+  healthCost: 250
+  healthToReceive: 25
+  ammoCost: 500
+  ammoToReceive: 50
+  maxHealthIncreaseCost: 3000
+  maxHealthIncreaseToReceive: 20
 --- !u!1 &2114021962
 GameObject:
   m_ObjectHideFlags: 0

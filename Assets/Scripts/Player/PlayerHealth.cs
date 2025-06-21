@@ -12,6 +12,8 @@ public class PlayerHealth : BaseHealthComponent, IHealable<int>
         { 
             currentHealth = Math.Clamp(currentHealth, minHealth, maxHealth);
         }
+
+        Debug.Log("Player was healed!");
     }
 
 
@@ -22,6 +24,8 @@ public class PlayerHealth : BaseHealthComponent, IHealable<int>
 
         maxHealth += upgradeIncrease;
         currentHealth += upgradeIncrease;
+
+        Debug.Log("Player Max Health was increased!");
 
     }
    

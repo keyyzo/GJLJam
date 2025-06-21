@@ -45,20 +45,31 @@ public class PlayerController : MonoBehaviour
 
     public void ProcessMaxHealthUpgrade(int upgradeAmount, int upgradeCost)
     {
+       
         playerHealth.UpgradeMaxHealth(upgradeAmount);
         playerInventory.SpendResource(upgradeCost);
+
     }
 
     public void ProcessHealthPurchase(int healAmount, int healCost)
     {
+       
         playerHealth.ProcessHeal(healAmount);
         playerInventory.SpendResource(healCost);
+
     }
 
     public void ProcessAmmoPurhcase(int ammoAmount, int ammoCost)
     {
+
+
         playerInventory.ReceiveAmmo(ammoAmount);
         playerInventory.SpendResource(ammoCost);
+    }
+
+    public int GetCurrentResourceAmount()
+    { 
+        return playerInventory.CurrentResourceAmount;
     }
 
 }
