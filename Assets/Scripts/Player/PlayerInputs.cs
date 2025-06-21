@@ -27,10 +27,12 @@ public class PlayerInputs : MonoBehaviour
 
     public bool CursorLocked = true;
 
+    public bool CursorVisible = true;
+
     private void Start()
     {
         SetCursorState(CursorLocked);
-        SetCursorHidden(false);
+        SetCursorHidden(CursorVisible);
     }
 
     #region Callback Functions

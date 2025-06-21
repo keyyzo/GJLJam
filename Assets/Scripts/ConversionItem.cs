@@ -10,6 +10,7 @@ public class ConversionItem : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TMP_Text itemName;
     [SerializeField] TMP_Text itemDescription;
     [SerializeField] TMP_Text itemCost;
+    [SerializeField] TMP_Text itemAmount;
 
     // private variables
 
@@ -33,16 +34,22 @@ public class ConversionItem : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
 
 
+    public void SetItemUI(int priceAmount, int itemAmountReceived, string itemAmountReivedText)
+    { 
+        itemCost.text = "Cost: " + priceAmount.ToString();
+        itemAmount.text = itemAmountReivedText;
+    }
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         isPointerOverUI = true;
-        Debug.Log("Mouse is hovering over " + itemName);
+        //Debug.Log("Mouse is hovering over " + itemName);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         isPointerOverUI = false;
-        Debug.Log("Mouse has stopped hovering over " + itemName);
+        //Debug.Log("Mouse has stopped hovering over " + itemName);
     }
 }

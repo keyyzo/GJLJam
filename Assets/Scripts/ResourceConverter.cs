@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using TMPro;
 
 public class ResourceConverter : MonoBehaviour, IInteractable
 {
@@ -31,6 +32,8 @@ public class ResourceConverter : MonoBehaviour, IInteractable
     [SerializeField] ConversionItem healthDropItem;
     [SerializeField] ConversionItem ammoDropItem;
     [SerializeField] ConversionItem maxHealthIncreaseItem;
+
+    [SerializeField] TMP_Text resourceAmountText;
 
     [Space(5)]
 
@@ -62,7 +65,7 @@ public class ResourceConverter : MonoBehaviour, IInteractable
     
     // Lists
 
-    List<ConversionItem> conversionItems = new List<ConversionItem>();
+    [SerializeField] List<ConversionItem> conversionItems = new List<ConversionItem>();
 
     private void Awake()
     {
@@ -80,6 +83,7 @@ public class ResourceConverter : MonoBehaviour, IInteractable
     {
         PointPromptTextToCamera();
         SetConversionItemActive();
+        SetCurrentResourceAmountUI();
     }
 
     #region Prompt Functions
@@ -135,9 +139,19 @@ public class ResourceConverter : MonoBehaviour, IInteractable
 
     void InitializeConversionItems()
     {
+        string healthString = "Heals instantly by: " + healthToReceive.ToString();
+        string ammoString = "Increases ammo by: " + ammoToReceive.ToString();
+        string maxHealthString = "Increases max health by: " + maxHealthIncreaseToReceive.ToString();
+
+
+
+        healthDropItem.SetItemUI(healthCost, healthToReceive, healthString);
+        ammoDropItem.SetItemUI(ammoCost, ammoToReceive, ammoString);
+        maxHealthIncreaseItem.SetItemUI(maxHealthIncreaseCost, maxHealthIncreaseToReceive, maxHealthString);
+
         conversionItems.Add(healthDropItem);
-        //conversionItems.Add(ammoDropItem);
-        //conversionItems.Add(maxHealthIncreaseItem);
+        conversionItems.Add(ammoDropItem);
+        conversionItems.Add(maxHealthIncreaseItem);
     }
 
 
@@ -184,17 +198,19 @@ public class ResourceConverter : MonoBehaviour, IInteractable
                 activeItem.ItemButton.onClick.AddListener(OnMaxHealthIncrease);
             }
         }
-    }
+    } // NOT USED
 
     void SetConversionItemActive()
     {
-        foreach (var item in conversionItems)
+        foreach (ConversionItem item in conversionItems)
         {
-            if (item.IsPointerOverUI && activeItem == null)
+            if (item.IsPointerOverUI)
             {
+
                 activeItem = item;
                 isConversionItemActive = true;
-                Debug.Log("Active Conversion Item Set");
+                break;
+                //Debug.Log("Active Conversion Item Set");
             }
 
             else
@@ -202,29 +218,45 @@ public class ResourceConverter : MonoBehaviour, IInteractable
                 activeItem?.ItemButton.onClick.RemoveAllListeners();
                 activeItem = null;
                 isConversionItemActive = false;
-                Debug.Log("Active Conversion Item Removed");
+                //Debug.Log("Active Conversion Item Removed");
             }
+
+
         }
+
+        //for (int i = 0; i < conversionItems.Count; i++)
+        //{
+        //    if (conversionItems[i].IsPointerOverUI)
+        //    {
+        //        activeItem = conversionItems[i];
+        //    }
+
+        //    else
+        //    {
+        //        activeItem?.ItemButton.onClick.RemoveAllListeners();
+        //        activeItem = null;
+        //    }
+        //}
 
         if (activeItem != null)
         {
-            activeItem.ItemButton.onClick.RemoveAllListeners();
+            //activeItem.ItemButton.onClick.RemoveAllListeners();
 
             if (activeItem == healthDropItem)
             {
-                Debug.Log("Healing Item Set as Active Item");
+                //Debug.Log("Healing Item Set as Active Item");
                 activeItem.ItemButton.onClick.AddListener(OnHealthItemAdd);
             }
 
             else if (activeItem == ammoDropItem)
             {
-                Debug.Log("Ammo Item Set as Active Item");
+                //Debug.Log("Ammo Item Set as Active Item");
                 activeItem.ItemButton.onClick.AddListener(OnAmmoItemAdd);
             }
 
             else if (activeItem == maxHealthIncreaseItem)
             {
-                Debug.Log("Max Health Increase Item Set as Active Item");
+                //Debug.Log("Max Health Increase Item Set as Active Item");
                 activeItem.ItemButton.onClick.AddListener(OnMaxHealthIncrease);
             }
         }
@@ -236,11 +268,20 @@ public class ResourceConverter : MonoBehaviour, IInteractable
         //}
     }
 
-    
+    void SetCurrentResourceAmountUI()
+    {
+        if (isMenuActive)
+        {
+            int amountToShow = (int)(playerObject?.GetCurrentResourceAmount());
+
+            resourceAmountText.text = "Resource remaining to spend: " + amountToShow.ToString();
+        }
+    }
 
 
     void OnHealthItemAdd()
     {
+        Debug.Log("Health Item Called");
         if(playerObject.GetCurrentResourceAmount() >= healthCost)
             playerObject.ProcessHealthPurchase(healthToReceive, healthCost);
 
