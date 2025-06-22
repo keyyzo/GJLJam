@@ -5,8 +5,9 @@ public class BaseEnemy : MonoBehaviour
 {
     [Header("Enemy Attributes")]
 
-    [SerializeField] int enemyDamage = 20;
+    [SerializeField] protected int enemyDamage = 20;
 
+    public int EnemyDamage => enemyDamage;
 
     const string PLAYER_STRING = "Player";
 
@@ -39,6 +40,11 @@ public class BaseEnemy : MonoBehaviour
 
         agent.SetDestination(playerObject.transform.position);
         
+    }
+
+    public void IncreaseEnemyDamage(int newDamageVal)
+    { 
+        enemyDamage += newDamageVal;
     }
 
 

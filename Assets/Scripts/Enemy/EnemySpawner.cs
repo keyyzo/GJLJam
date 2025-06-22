@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.Splines;
 
 public class EnemySpawner : MonoBehaviour
@@ -13,19 +14,19 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Spawn Attributes")]
 
-    [SerializeField] float minNextSpawnTime = 3.0f;
-    [SerializeField] float maxNextSpawnTime = 8.0f;
+    [Range(0.1f,10.0f)]
+    public float MinNextSpawnTime = 3.0f;
+    public float MaxNextSpawnTime = 8.0f;
 
     float spawnTimer = 0.0f;
     float nextRandomSpawnTime;
 
-
     private void Update()
     {
-        SpawnNextEnemy();
+        //SpawnNextEnemy();
     }
 
-    void SpawnEnemyOnSpline()
+    void SpawnEnemyOnSpline(int enemyDamageVal)
     { 
         if(!enemyPrefab || !splineContainer)
             return;
@@ -34,12 +35,13 @@ public class EnemySpawner : MonoBehaviour
 
         Vector3 spawnPosition =  splineContainer.EvaluatePosition(randomPos);
 
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        BaseEnemy newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity).GetComponent<BaseEnemy>();
+        newEnemy.IncreaseEnemyDamage(enemyDamageVal);
 
-        nextRandomSpawnTime = Random.Range(minNextSpawnTime, maxNextSpawnTime);
+        nextRandomSpawnTime = Random.Range(MinNextSpawnTime, MaxNextSpawnTime);
     }
 
-    void SpawnNextEnemy()
+    public void SpawnNextEnemy(int enemyDamageVal)
     {
         if (spawnTimer < nextRandomSpawnTime)
         {
@@ -48,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
 
         else
         { 
-            SpawnEnemyOnSpline();
+            SpawnEnemyOnSpline(enemyDamageVal);
             spawnTimer = 0.0f;
         }
 
