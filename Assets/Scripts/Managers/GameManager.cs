@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,13 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public PlayerController playerController;
 
+
+    [Space(5)]
+
+    [Header("Game State References")]
+
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject pauseScreen;
 
     [Space(5)]
 
@@ -38,16 +46,54 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        pauseScreen.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isGamePaused)
+            {
+                OnGamePaused();
+            }
+
+            else if (isGamePaused)
+            {
+                OnGameUnpaused();
+            }
+        }
+    }
+
     public void OnGamePaused()
     { 
         isGamePaused = true;
         Time.timeScale = 0.0f;
+        pauseScreen.SetActive(true);
     }
 
     public void OnGameUnpaused()
     {
         isGamePaused = false;
         Time.timeScale = 1.0f;
+        pauseScreen.SetActive(false);
+    }
+
+    public void OnGameRestart()
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
+    }
+
+    public void OnGameQuit()
+    {
+        #if UNITY_EDITOR
+         UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+
+        Application.Quit();
     }
 
     public void OnPlayerDead()

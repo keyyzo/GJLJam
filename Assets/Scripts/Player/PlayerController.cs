@@ -24,11 +24,16 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        playerMovement.HandleMovement(playerInputs.Move);
-        playerAiming.ProcessAiming(playerInputs.Aim);
-        playerActiveAttack.HandleAttack(playerInputs.Attack);
-        playerActiveAttack.ReloadAttack(playerInputs.Reload);
-        playerInteractor.SetInteracting(playerInputs.Interact);
+        if (!GameManager.Instance.isGamePaused)
+        {
+            playerMovement.HandleMovement(playerInputs.Move);
+            playerAiming.ProcessAiming(playerInputs.Aim);
+            playerActiveAttack.HandleAttack(playerInputs.Attack);
+            playerActiveAttack.ReloadAttack(playerInputs.Reload);
+            playerInteractor.SetInteracting(playerInputs.Interact);
+        }
+
+        
         
     }
 
