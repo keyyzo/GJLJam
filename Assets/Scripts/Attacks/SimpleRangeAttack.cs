@@ -32,6 +32,7 @@ public class SimpleRangeAttack : BaseAttack
 
     bool _canAttack = true;
     bool _isReloading = false;
+    bool _hasReloaded = false;
 
     // Cached Components
 
@@ -47,7 +48,12 @@ public class SimpleRangeAttack : BaseAttack
     {
         RangeAttackReset();
         ReloadTimer();
-        UIManager.Instance.SetPlayerClipAmmo(currentAmmoInClip);
+
+        if (!_isReloading)
+        {
+            UIManager.Instance.SetPlayerClipAmmo(currentAmmoInClip);
+        }
+        
     }
 
     public override void Attack()
@@ -63,6 +69,7 @@ public class SimpleRangeAttack : BaseAttack
 
     public void ReloadAmmo(int amount)
     {
+        
         currentAmmoInClip += amount;
 
         if (currentAmmoInClip > maxClipSize)
@@ -78,6 +85,7 @@ public class SimpleRangeAttack : BaseAttack
             Debug.Log("Reloading...");
             _isReloading = true;
             //playerInventory.ReloadAttackAmmo(currentAmmoInClip, maxClipSize);
+
             currentAmmoInClip += playerInventory.ReloadAttackAmmo(currentAmmoInClip, maxClipSize);
         }
 

@@ -49,6 +49,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         pauseScreen.SetActive(false);
+        //gameOverScreen.SetActive(false);
+        isGamePaused = false;
+        hasPlayerDied = false;
+        isPlayerUsingConverter = false;
     }
 
     private void Update()
@@ -85,15 +89,19 @@ public class GameManager : MonoBehaviour
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
+        OnGameUnpaused();
     }
 
     public void OnGameQuit()
     {
-        #if UNITY_EDITOR
-         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+        //#if UNITY_EDITOR
+        // UnityEditor.EditorApplication.isPlaying = false;
+        //#endif
 
-        Application.Quit();
+        //Application.Quit();
+
+        int mainMenuScene = SceneManager.GetActiveScene().buildIndex - 1;
+        SceneManager.LoadScene(mainMenuScene);
     }
 
     public void OnPlayerDead()
