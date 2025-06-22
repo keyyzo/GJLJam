@@ -43,6 +43,7 @@ public class BaseHealthComponent : MonoBehaviour, IDamageable<int>, IKillable
 
         if (currentHealth <= minHealth)
         { 
+            currentHealth = minHealth;
             ProcessKill();
         }
     }

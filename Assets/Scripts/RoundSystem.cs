@@ -30,7 +30,8 @@ public class RoundSystem : MonoBehaviour
     [Header("Attributes to Increase Per Round")]
 
     public int enemyDamageIncrease = 10;
-    public float enemySpawnRate = 0.1f;
+    public float minEnemySpawnRateChange = 0.1f;
+    public float maxEnemySpawnRateChange = 0.5f;
 
     [Space(5)]
 
@@ -140,6 +141,21 @@ public class RoundSystem : MonoBehaviour
         roundNumber += 1;
 
         roundNumberText.text = roundNumberPreText + roundNumber.ToString();
+
+        enemySpawner.MinNextSpawnTime -= minEnemySpawnRateChange;
+
+        if (enemySpawner.MinNextSpawnTime < 0.1f)
+        {
+            enemySpawner.MinNextSpawnTime = 0.1f;
+        }
+
+        enemySpawner.MaxNextSpawnTime -= maxEnemySpawnRateChange;
+
+        if (enemySpawner.MaxNextSpawnTime < 2.5f)
+        {
+            enemySpawner.MaxNextSpawnTime = 2.5f;
+        }
+
 
 
 

@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     [Range(0.1f,10.0f)]
     public float MinNextSpawnTime = 3.0f;
+    [Range(2.5f, 10.0f)]
     public float MaxNextSpawnTime = 8.0f;
 
     float spawnTimer = 0.0f;

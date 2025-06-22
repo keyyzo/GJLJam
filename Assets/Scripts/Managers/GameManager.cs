@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -47,5 +48,25 @@ public class GameManager : MonoBehaviour
     {
         isGamePaused = false;
         Time.timeScale = 1.0f;
+    }
+
+    public void OnPlayerDead()
+    { 
+        hasPlayerDied = true;
+
+        StartCoroutine(OnPlayerDeadRoutine());
+    }
+
+    IEnumerator OnPlayerDeadRoutine()
+    {
+        while (Time.timeScale > 0.2f)
+        {
+            //Time.timeScale = Mathf.Lerp(1.0f, 0.2f, Time.unscaledDeltaTime);
+            Time.timeScale -= Time.unscaledDeltaTime;
+        }
+
+        Time.timeScale = 0.2f;
+
+        yield return null;
     }
 }

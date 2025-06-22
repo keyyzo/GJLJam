@@ -3,7 +3,17 @@ using UnityEngine;
 
 public class PlayerHealth : BaseHealthComponent, IHealable<int>
 {
-    
+
+    private void Start()
+    {
+        maxHealth = SetDefaultHealth(maxHealth);
+        currentHealth = maxHealth;
+
+        UIManager.Instance.DisplayPlayerHealth(currentHealth, maxHealth);
+
+       
+    }
+
     public void ProcessHeal(int healAmount)
     {
         currentHealth += healAmount;
@@ -13,7 +23,10 @@ public class PlayerHealth : BaseHealthComponent, IHealable<int>
             currentHealth = Math.Clamp(currentHealth, minHealth, maxHealth);
         }
 
+        UIManager.Instance.DisplayPlayerHealth(currentHealth, maxHealth);
+
         Debug.Log("Player was healed!");
+        
     }
 
 
@@ -25,8 +38,32 @@ public class PlayerHealth : BaseHealthComponent, IHealable<int>
         maxHealth += upgradeIncrease;
         currentHealth += upgradeIncrease;
 
+        UIManager.Instance.DisplayPlayerHealth(currentHealth, maxHealth);
+
         Debug.Log("Player Max Health was increased!");
 
     }
-   
+
+    public override void ProcessDamage(int damageTaken)
+    {
+        base.ProcessDamage(damageTaken);
+
+        UIManager.Instance.DisplayPlayerHealth(currentHealth, maxHealth);
+    }
+
+    public override void ProcessKill()
+    {
+
+        GameManager.Instance.OnPlayerDead();
+
+        base.ProcessKill();
+
+        
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
 }
