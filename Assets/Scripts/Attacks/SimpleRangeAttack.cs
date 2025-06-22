@@ -40,7 +40,10 @@ public class SimpleRangeAttack : BaseAttack
 
     private void Start()
     {
+        
         playerAimPoint = GameObject.Find("AimPointer").transform;
+        
+        
         playerInventory = GetComponentInParent<PlayerInventory>();
     }
 

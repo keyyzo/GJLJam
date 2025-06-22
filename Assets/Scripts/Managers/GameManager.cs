@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] GameObject pauseScreen;
+    [SerializeField] GameObject playerUIScreen;
+    [SerializeField] GameObject roundUIScreen;
 
     [Space(5)]
 
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         pauseScreen.SetActive(false);
-        //gameOverScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
         isGamePaused = false;
         hasPlayerDied = false;
         isPlayerUsingConverter = false;
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !hasPlayerDied)
         {
             if (!isGamePaused)
             {
@@ -76,6 +78,8 @@ public class GameManager : MonoBehaviour
         isGamePaused = true;
         Time.timeScale = 0.0f;
         pauseScreen.SetActive(true);
+        playerUIScreen.SetActive(false);
+        roundUIScreen.SetActive(false);
     }
 
     public void OnGameUnpaused()
@@ -83,6 +87,8 @@ public class GameManager : MonoBehaviour
         isGamePaused = false;
         Time.timeScale = 1.0f;
         pauseScreen.SetActive(false);
+        playerUIScreen.SetActive(true);
+        roundUIScreen.SetActive(true);
     }
 
     public void OnGameRestart()
@@ -109,6 +115,9 @@ public class GameManager : MonoBehaviour
         hasPlayerDied = true;
 
         StartCoroutine(OnPlayerDeadRoutine());
+        gameOverScreen.SetActive(true);
+        playerUIScreen.SetActive(false);
+        roundUIScreen.SetActive(false);
     }
 
     IEnumerator OnPlayerDeadRoutine()
