@@ -109,6 +109,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDamage: 20
+  resourcePrefab: {fileID: 8419451064297126119, guid: 7c27696ccdb85ee40925c9db8c0c70a1, type: 3}
+  minNumOfResourceToDropOnDestroy: 0
+  maxNumOfResourceToDropOnDestroy: 3
+  minRandomSpawnOffset: -2
+  maxRandomSpawnOffset: 2
 --- !u!1 &615739875920241857
 GameObject:
   m_ObjectHideFlags: 0

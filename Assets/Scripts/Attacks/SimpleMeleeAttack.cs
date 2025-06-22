@@ -141,6 +141,11 @@ public class SimpleMeleeAttack : BaseAttack
             enemyToDamage?.ProcessDamage(attackDamage);
         }
 
+        if (other.TryGetComponent(out BaseEnemy enemyHit))
+        {
+            enemyHit.ProcessSpawn();
+        }
+
         Debug.Log(other.gameObject.name);
     }
 

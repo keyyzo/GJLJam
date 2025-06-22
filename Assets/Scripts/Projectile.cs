@@ -59,7 +59,17 @@ public class Projectile : MonoBehaviour
         if (other.TryGetComponent(out IDamageable<int> damageableEntity))
         {
             damageableEntity.ProcessDamage(damageToDeal);
+
+            if (damageableEntity.CurrentHealth <= 0 && other.TryGetComponent(out BaseEnemy enemyHit))
+            {
+                enemyHit.ProcessSpawn();
+            }
         }
+
+        //if (other.TryGetComponent(out BaseEnemy enemyHit))
+        //{
+        //    enemyHit.ProcessSpawn();
+        //}
 
 
         Destroy(gameObject);
