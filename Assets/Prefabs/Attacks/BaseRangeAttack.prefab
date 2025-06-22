@@ -200,6 +200,6 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 1610863130200563401}
   maxClipSize: 30
   currentAmmoInClip: 30
-  rangeRateOfFire: 0.4
-  projectileSpeed: 6000
+  rangeRateOfFire: 0.35
+  projectileSpeed: 7500
   timeToReload: 2.5

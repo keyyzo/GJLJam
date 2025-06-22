@@ -2,8 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
-public class ConversionItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ConversionItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     [Header("References")]
 
@@ -51,5 +52,16 @@ public class ConversionItem : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         isPointerOverUI = false;
         //Debug.Log("Mouse has stopped hovering over " + itemName);
+    }
+
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        itemButton.interactable = true;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        itemButton.interactable = false;
     }
 }

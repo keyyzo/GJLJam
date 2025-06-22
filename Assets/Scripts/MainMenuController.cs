@@ -18,6 +18,11 @@ public class MainMenuController : MonoBehaviour
     bool isCreditsSelected = false;
     bool isSettingsSelected = false;
 
+    private void Awake()
+    {
+        QualitySettings.vSyncCount = 1;
+    }
+
     private void Start()
     {
         mainMenuObj.SetActive(true);

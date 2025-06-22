@@ -20,7 +20,8 @@ public class PlayerHealth : BaseHealthComponent, IHealable<int>
 
         if (currentHealth > maxHealth)
         { 
-            currentHealth = Math.Clamp(currentHealth, minHealth, maxHealth);
+            //currentHealth = Math.Clamp(currentHealth, minHealth, maxHealth);
+            currentHealth = maxHealth;
         }
 
         UIManager.Instance.DisplayPlayerHealth(currentHealth, maxHealth);

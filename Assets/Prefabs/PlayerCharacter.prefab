@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 8919700282709037999}
   - component: {fileID: 7766270916094476874}
   - component: {fileID: 5663558885574204948}
+  - component: {fileID: 3712448149914010056}
   m_Layer: 9
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -516,7 +517,8 @@ MonoBehaviour:
   attack: 0
   interact: 0
   reload: 0
-  CursorLocked: 1
+  CursorLocked: 0
+  CursorVisible: 1
 --- !u!114 &5569537269346456331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,7 +686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentResourceAmount: 0
-  maxAmmoAmount: 200
+  maxAmmoAmount: 500
   currentAmmoAmount: 200
 --- !u!114 &5663558885574204948
 MonoBehaviour:
@@ -698,3 +700,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6398d3cfae74a40b71037d71f3afd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3712448149914010056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8284114091194055760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef2a7fc122ce514b95c3d718ddea371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  minHealth: 0
+  currentHealth: 0

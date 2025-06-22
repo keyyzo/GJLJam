@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,6 +58,7 @@ public class ResourceConverter : MonoBehaviour, IInteractable
     bool canInteract = false;
     bool isMenuActive = false;
     bool isConversionItemActive = false;
+    bool canBuy = true;
 
     // Cached components
 
@@ -84,6 +86,16 @@ public class ResourceConverter : MonoBehaviour, IInteractable
         PointPromptTextToCamera();
         SetConversionItemActive();
         SetCurrentResourceAmountUI();
+
+        if (isMenuActive && (GameManager.Instance.isGamePaused || GameManager.Instance.hasPlayerDied))
+        {
+            converterMenu.SetActive(false);
+        }
+
+        else if (isMenuActive && !GameManager.Instance.isGamePaused)
+        {
+            converterMenu.SetActive(true);
+        }
     }
 
     #region Prompt Functions
@@ -91,12 +103,14 @@ public class ResourceConverter : MonoBehaviour, IInteractable
     public void ProcessInteract()
     {
         if (canInteract && !isMenuActive)
-        { 
+        {
             canInteract = false;
             isMenuActive = true;
 
             converterMenu.SetActive(true);
         }
+
+        
     }
 
     public void ProcessInteractPrompt()
@@ -241,23 +255,30 @@ public class ResourceConverter : MonoBehaviour, IInteractable
         if (activeItem != null)
         {
             //activeItem.ItemButton.onClick.RemoveAllListeners();
+            //activeItem.ItemButton.interactable = true;
 
             if (activeItem == healthDropItem)
             {
                 //Debug.Log("Healing Item Set as Active Item");
                 activeItem.ItemButton.onClick.AddListener(OnHealthItemAdd);
+
+                
             }
 
             else if (activeItem == ammoDropItem)
             {
                 //Debug.Log("Ammo Item Set as Active Item");
                 activeItem.ItemButton.onClick.AddListener(OnAmmoItemAdd);
+
+                
             }
 
             else if (activeItem == maxHealthIncreaseItem)
             {
                 //Debug.Log("Max Health Increase Item Set as Active Item");
                 activeItem.ItemButton.onClick.AddListener(OnMaxHealthIncrease);
+
+                
             }
         }
 
@@ -281,25 +302,51 @@ public class ResourceConverter : MonoBehaviour, IInteractable
 
     void OnHealthItemAdd()
     {
-        Debug.Log("Health Item Called");
-        if(playerObject.GetCurrentResourceAmount() >= healthCost)
-            playerObject.ProcessHealthPurchase(healthToReceive, healthCost);
+        if (canBuy)
+        {
+            Debug.Log("Health Item Called");
+            if (playerObject.GetCurrentResourceAmount() >= healthCost)
+                playerObject.ProcessHealthPurchase(healthToReceive, healthCost);
+        }
 
+        PurchaseCooldown();
     }
 
     void OnMaxHealthIncrease()
     {
-        if(playerObject.GetCurrentResourceAmount() >= maxHealthIncreaseCost)
-            playerObject.ProcessMaxHealthUpgrade(maxHealthIncreaseToReceive, maxHealthIncreaseCost);
+        if (canBuy)
+        {
+            if (playerObject.GetCurrentResourceAmount() >= maxHealthIncreaseCost)
+                playerObject.ProcessMaxHealthUpgrade(maxHealthIncreaseToReceive, maxHealthIncreaseCost);
+        }
+
+        PurchaseCooldown();
+
     }
 
     void OnAmmoItemAdd()
-    { 
-        if(playerObject.GetCurrentResourceAmount() >= ammoCost)
-            playerObject.ProcessAmmoPurhcase(ammoToReceive, ammoCost);
+    {
+        if (canBuy)
+        {
+            if (playerObject.GetCurrentResourceAmount() >= ammoCost)
+                playerObject.ProcessAmmoPurhcase(ammoToReceive, ammoCost);
+        }
+
+        PurchaseCooldown();
     }
 
-    
+    void PurchaseCooldown()
+    {
+        canBuy = false;
+
+        foreach (var item in conversionItems)
+        { 
+            item.ItemButton.interactable = false;
+        }
+
+        StartCoroutine(PurchaseCooldownRoutine());
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -331,18 +378,15 @@ public class ResourceConverter : MonoBehaviour, IInteractable
     }
 
 
-    //public void OnPointerEnter(PointerEventData eventData)
-    //{
-    //    if (eventData.pointerEnter.transform.gameObject == conversionItems[0].itemObject)
-    //    {
-    //        activeItem = conversionItems[0];
-    //        activeItem.itemButton.onClick.AddListener(OnHealthItemAdd);
-    //        Debug.Log("Button Ready!");
-    //    }
-    //}
+    IEnumerator PurchaseCooldownRoutine()
+    {
+        yield return new WaitForSeconds(1f);
 
-    //public void OnPointerExit(PointerEventData eventData)
-    //{
-    //    activeItem = null;
-    //}
+        foreach (var item in conversionItems)
+        {
+            item.ItemButton.interactable = true;
+        }
+
+        canBuy = true;
+    }
 }

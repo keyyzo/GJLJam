@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseScreen;
     [SerializeField] GameObject playerUIScreen;
     [SerializeField] GameObject roundUIScreen;
+    [SerializeField] GameObject converterUIScreen;
 
     [Space(5)]
 
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        QualitySettings.vSyncCount = 1;
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -119,6 +122,8 @@ public class GameManager : MonoBehaviour
         playerUIScreen.SetActive(false);
         roundUIScreen.SetActive(false);
     }
+
+    
 
     IEnumerator OnPlayerDeadRoutine()
     {
