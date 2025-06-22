@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField] GameObject mainMenuObj;
     [SerializeField] GameObject howToPlayObj;
+    [SerializeField] GameObject creditsObj;
 
     [SerializeField] GameObject backButtonObj;
 
@@ -21,6 +22,7 @@ public class MainMenuController : MonoBehaviour
     {
         mainMenuObj.SetActive(true);
         howToPlayObj.SetActive(false);
+        creditsObj.SetActive(false);
     }
 
     public void OnGameStart()
@@ -39,13 +41,17 @@ public class MainMenuController : MonoBehaviour
 
     public void OnDisplayCredits()
     { 
-        
+        mainMenuObj?.SetActive(false);
+        creditsObj?.SetActive(true);
+
         isCreditsSelected = true;
     }
 
     public void OnDisplaySettings() 
     {
+        mainMenuObj?.SetActive(false);
         
+
         isSettingsSelected = true;
     }
 
@@ -68,7 +74,7 @@ public class MainMenuController : MonoBehaviour
 
         if (isCreditsSelected)
         { 
-            
+            creditsObj?.SetActive(false);
             isCreditsSelected = false;
         }
 
