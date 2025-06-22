@@ -29,6 +29,11 @@ public class PlayerInventory : MonoBehaviour
         playerActiveAttack = GetComponentInChildren<PlayerActiveAttack>();
     }
 
+    private void Update()
+    {
+        UIManager.Instance.SetPlayerStashAmmo(currentAmmoAmount);
+        UIManager.Instance.playerResourceAmount = currentResourceAmount;
+    }
 
     #region Resource Methods
 

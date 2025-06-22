@@ -47,6 +47,7 @@ public class SimpleRangeAttack : BaseAttack
     {
         RangeAttackReset();
         ReloadTimer();
+        UIManager.Instance.SetPlayerClipAmmo(currentAmmoInClip);
     }
 
     public override void Attack()

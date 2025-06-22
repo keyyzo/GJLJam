@@ -48,7 +48,7 @@ public class RoundSystem : MonoBehaviour
 
     string roundActiveTimerText = "Time left in round: ";
     string roundEndTimerText = "Time left before round begins: ";
-    string roundNumberPreText = "Current Round ";
+    string roundNumberPreText = "Current Round: ";
     string roundOverText = "Round Over!";
     string roundBeginText = "Round Starting!";
 

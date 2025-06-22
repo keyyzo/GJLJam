@@ -16,6 +16,20 @@ public class PlayerActiveAttack : MonoBehaviour
             SwitchAttack(starterAttack);
     }
 
+    private void Update()
+    {
+        if (currentAttack != null && currentAttack is SimpleRangeAttack)
+        {
+            UIManager.Instance.isRangeWeaponActive = true;
+        }
+
+        else
+        {
+            UIManager.Instance.isRangeWeaponActive = false;
+        }
+
+    }
+
     public void HandleAttack(bool attackInput)
     { 
         if (attackInput) 
