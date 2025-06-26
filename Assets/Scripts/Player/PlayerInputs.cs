@@ -19,7 +19,16 @@ public class PlayerInputs : MonoBehaviour
     public bool Interact => interact;
 
     [SerializeField] bool reload;
-    public bool Reload => reload;   
+    public bool Reload => reload;
+
+    [SerializeField] bool pause;
+    public bool Pause => pause;
+
+    [SerializeField] float weaponSlots;
+    public float WeaponSlots => weaponSlots;
+
+    [SerializeField] float scroll;
+    public float Scroll => scroll;
 
     [Space(10)]
 
@@ -49,17 +58,22 @@ public class PlayerInputs : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        //if (context.performed)
-        //{
-        //    attack = true;
-        //}
+        if (context.performed)
+        {
+            attack = true;
+        }
 
-        //if(context.canceled)
-        //{
-        //    attack = false;
-        //}
+        if (context.canceled)
+        {
+            attack = false;
+        }
 
-        attack = context.ReadValueAsButton();
+        //attack = context.ReadValueAsButton();
+
+        //attack = context.action.triggered;
+
+        //attack = context.action.WasPressedThisFrame();
+
     }
 
     public void OnInteract(InputAction.CallbackContext context)
@@ -70,6 +84,24 @@ public class PlayerInputs : MonoBehaviour
     public void OnReload(InputAction.CallbackContext context)
     { 
         reload = context.ReadValueAsButton();
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+       pause = context.ReadValueAsButton();
+    }
+
+    public void OnWeaponSlots(InputAction.CallbackContext context)
+    {
+        weaponSlots = context.ReadValue<float>();
+        Debug.Log("Testing slot value button: " + weaponSlots);
+    }
+
+    
+
+    public void OnWeaponScroll(InputAction.CallbackContext context)
+    {
+        scroll = context.ReadValue<float>();
     }
 
     #endregion

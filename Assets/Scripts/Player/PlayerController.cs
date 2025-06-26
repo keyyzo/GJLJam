@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
             playerActiveAttack.HandleAttack(playerInputs.Attack);
             playerActiveAttack.ReloadAttack(playerInputs.Reload);
             playerInteractor.SetInteracting(playerInputs.Interact);
+            playerInventory.SwitchWeaponSlot((int)playerInputs.WeaponSlots);
         }
 
         

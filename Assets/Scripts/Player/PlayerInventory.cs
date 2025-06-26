@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -14,11 +16,25 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] int maxAmmoAmount = 999;
     [SerializeField] int currentAmmoAmount = 0;
 
+    [Space(5)]
+
+    [Header("Weapon Attributes")]
+
+    [SerializeField] BaseAttack[] attackSlots = new BaseAttack[2];
+
+    // private variables
+
+    List<BaseAttack> currentlyHeldAttacks = new List<BaseAttack>();
+
+    int currentSlotActive = 0;
 
     // public properties
 
     public int CurrentResourceAmount => currentResourceAmount;
     public int CurrentAmmoAmount => currentAmmoAmount;
+
+    public List<BaseAttack> CurrentlyHeldAttacks => currentlyHeldAttacks;
+
 
     // Cached Components
 
@@ -29,10 +45,21 @@ public class PlayerInventory : MonoBehaviour
         playerActiveAttack = GetComponentInChildren<PlayerActiveAttack>();
     }
 
+    private void Start()
+    {
+        if (playerActiveAttack.CurrentAttack)
+        {
+            currentlyHeldAttacks.Add(playerActiveAttack.CurrentAttack);
+            attackSlots[0] = playerActiveAttack.CurrentAttack;
+        }
+    }
+
     private void Update()
     {
         UIManager.Instance.SetPlayerStashAmmo(currentAmmoAmount);
         UIManager.Instance.playerResourceAmount = currentResourceAmount;
+
+        
     }
 
     #region Resource Methods
@@ -105,5 +132,16 @@ public class PlayerInventory : MonoBehaviour
 
     #endregion
 
+    #region Weapon Methods
 
+    public void SwitchWeaponSlot(int slotNum)
+    { 
+        if(slotNum < 0 || currentSlotActive == slotNum || slotNum >= attackSlots.Length || attackSlots[slotNum] == null)
+            return;
+
+        playerActiveAttack.SwitchAttack(attackSlots[slotNum]);
+
+    }
+
+    #endregion
 }

@@ -10,6 +10,9 @@ public class PlayerActiveAttack : MonoBehaviour
 
     BaseAttack currentAttack;
 
+
+    public BaseAttack CurrentAttack => currentAttack;
+
     private void Awake()
     {
         if(starterAttack)

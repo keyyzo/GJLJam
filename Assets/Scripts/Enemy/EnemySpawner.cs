@@ -22,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
     float spawnTimer = 0.0f;
     float nextRandomSpawnTime;
 
+
+    
     private void Update()
     {
         //SpawnNextEnemy();

@@ -181,6 +181,13 @@ public class RoundSystem : MonoBehaviour
 
         //StartCoroutine(QuickBreakRoutine());
 
+        BaseEnemy[] currentEnemiesActive = GameObject.FindObjectsByType<BaseEnemy>(FindObjectsSortMode.None);
+
+        foreach (BaseEnemy temp in currentEnemiesActive)
+        { 
+            temp.GetComponent<BaseHealthComponent>().ProcessKill();
+        }
+
         yield return new WaitForSeconds(quickBreakRoutineLength);
 
         StartEndRound();
