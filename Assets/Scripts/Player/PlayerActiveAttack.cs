@@ -44,7 +44,8 @@ public class PlayerActiveAttack : MonoBehaviour
     public void SwitchAttack(BaseAttack newAttack)
     {
         if (currentAttack)
-        { 
+        {
+            //currentAttack = null;
            Destroy(currentAttack.gameObject);
         }
 

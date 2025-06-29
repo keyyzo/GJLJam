@@ -60,22 +60,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "WeaponSlot1",
-                    "type": "Button",
+                    "name": "WeaponSlots",
+                    "type": "Value",
                     "id": "c986595a-a028-4875-9293-fe020ec78cbe",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "WeaponSlot2",
-                    "type": "Button",
-                    "id": "7aae6547-fd8f-4585-9554-33c04e0440fb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "ScrollWeapons",
@@ -203,20 +194,20 @@
                     "id": "4aab84f4-916c-421d-9ae5-b3ea75f4a40b",
                     "path": "<Keyboard>/1",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Scale(factor=0)",
                     "groups": "",
-                    "action": "WeaponSlot1",
+                    "action": "WeaponSlots",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "90e9fdf4-a9fa-435c-817a-1e9b4f22736d",
+                    "id": "ff52e6a0-c4c8-4bd5-9f1e-8205eb91f7dc",
                     "path": "<Keyboard>/2",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Scale",
                     "groups": "",
-                    "action": "WeaponSlot2",
+                    "action": "WeaponSlots",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -26,7 +26,7 @@ public class PlayerInventory : MonoBehaviour
 
     List<BaseAttack> currentlyHeldAttacks = new List<BaseAttack>();
 
-    int currentSlotActive = 0;
+    int currentSlotActive = 10;
 
     // public properties
 
@@ -50,7 +50,7 @@ public class PlayerInventory : MonoBehaviour
         if (playerActiveAttack.CurrentAttack)
         {
             currentlyHeldAttacks.Add(playerActiveAttack.CurrentAttack);
-            attackSlots[0] = playerActiveAttack.CurrentAttack;
+            attackSlots[0] = Instantiate(playerActiveAttack.CurrentAttack);
         }
     }
 
@@ -59,7 +59,7 @@ public class PlayerInventory : MonoBehaviour
         UIManager.Instance.SetPlayerStashAmmo(currentAmmoAmount);
         UIManager.Instance.playerResourceAmount = currentResourceAmount;
 
-        
+        //Debug.Log(attackSlots[0]);
     }
 
     #region Resource Methods
@@ -136,11 +136,40 @@ public class PlayerInventory : MonoBehaviour
 
     public void SwitchWeaponSlot(int slotNum)
     { 
-        if(slotNum < 0 || currentSlotActive == slotNum || slotNum >= attackSlots.Length || attackSlots[slotNum] == null)
+        if(slotNum < 0 || currentSlotActive == slotNum || slotNum >= attackSlots.Length || attackSlots[slotNum ] == null)
             return;
 
-        playerActiveAttack.SwitchAttack(attackSlots[slotNum]);
+        playerActiveAttack.SwitchAttack(attackSlots[slotNum ]);
+        currentSlotActive = slotNum;
 
+    }
+
+    public void PickupWeapon(BaseAttack attackToAdd)
+    { 
+        if(attackToAdd == null)
+            return;
+
+        for (int i = 0; i < attackSlots.Length; i++)
+        {
+            if (attackSlots[i] == null)
+            {
+                attackSlots[i] = Instantiate(attackToAdd);
+
+                if (i == 0 && playerActiveAttack.CurrentAttack == null)
+                { 
+                    SwitchWeaponSlot(i);
+                    //Debug.Log("Initial Gun Swap Initiated");
+                }
+
+                break;
+            }
+
+            else
+            {
+                continue;
+            }
+
+        }
     }
 
     #endregion

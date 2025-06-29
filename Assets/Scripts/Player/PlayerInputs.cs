@@ -93,7 +93,12 @@ public class PlayerInputs : MonoBehaviour
 
     public void OnWeaponSlots(InputAction.CallbackContext context)
     {
-        weaponSlots = context.ReadValue<float>();
+        
+        if (context.performed)
+        {
+            weaponSlots = context.ReadValue<float>();
+        }
+
         Debug.Log("Testing slot value button: " + weaponSlots);
     }
 
