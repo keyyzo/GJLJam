@@ -16,16 +16,36 @@ public class BaseDropper : MonoBehaviour, ISpawnable
         {
             float tempChanceToSpawnItem = Random.Range(0.00f, 100.0f);
 
-            if (tempChanceToSpawnItem <= droppablePrefabs[i].ChanceToSpawn)
+            if (tempChanceToSpawnItem <= droppablePrefabs[i].ChanceToSpawn && droppablePrefabs[i] != null)
             {
-                int randomAmountToSpawn = Random.Range(droppablePrefabs[i].MinNumToSpawn, droppablePrefabs[i].MaxNumToSpawn);
+                if (!droppablePrefabs[i].IsOnlySpawnedOnce)
+                {
+                    int randomAmountToSpawn = Random.Range(droppablePrefabs[i].MinNumToSpawn, droppablePrefabs[i].MaxNumToSpawn);
 
-                for (int j = 0; j < randomAmountToSpawn; j++)
+                    for (int j = 0; j < randomAmountToSpawn; j++)
+                    {
+                        Vector3 tempSpawnPos = GenerateRandomSpawnPosition(droppablePrefabs[i].MinSpawnOffset, droppablePrefabs[i].MaxSpawnOffset);
+
+                        if (droppablePrefabs[i].ItemPrefab != null)
+                        {
+                            Instantiate(droppablePrefabs[i].ItemPrefab, tempSpawnPos, Quaternion.identity);
+                        }
+                    }
+
+                        
+                }
+
+                else
                 {
                     Vector3 tempSpawnPos = GenerateRandomSpawnPosition(droppablePrefabs[i].MinSpawnOffset, droppablePrefabs[i].MaxSpawnOffset);
 
-                    Instantiate(droppablePrefabs[i].ItemPrefab, tempSpawnPos, Quaternion.identity);
+                    if (droppablePrefabs[i].ItemPrefab != null)
+                    {
+                        Instantiate(droppablePrefabs[i].ItemPrefab, tempSpawnPos, Quaternion.identity);
+                    }
                 }
+
+                
 
                 
             }

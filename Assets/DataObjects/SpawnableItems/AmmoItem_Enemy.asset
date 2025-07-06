@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0e49f1e6e0df214da6b7300a3da2c78, type: 3}
-  m_Name: ResourceItem_Enemy
+  m_Name: AmmoItem_Enemy
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 8419451064297126119, guid: 7c27696ccdb85ee40925c9db8c0c70a1, type: 3}
+  itemPrefab: {fileID: 2006563209094947375, guid: 87513394914fc57459d2059e67e03d86, type: 3}
   minNumToSpawn: 1
-  maxNumToSpawn: 4
+  maxNumToSpawn: 2
   minSpawnOffset: -2.5
   maxSpawnOffset: 2.5
-  chanceToSpawn: 40
+  chanceToSpawn: 25
   isOnlySpawnedOnce: 0

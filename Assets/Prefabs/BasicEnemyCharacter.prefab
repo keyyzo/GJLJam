@@ -129,6 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droppablePrefabs:
   - {fileID: 11400000, guid: fcc9638b7158ee14489d5b3381c8c782, type: 2}
+  - {fileID: 11400000, guid: 682fdd97cb2d9024f8b272e554bc99ce, type: 2}
+  - {fileID: 11400000, guid: 432775f60774eef4ea1a80af8b0216d7, type: 2}
 --- !u!1 &615739875920241857
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,11 @@ public class SpawnableItem : ScriptableObject
     [Space(2)]
 
     [Tooltip("Percentage of chance to spawn item when owner is looted / destroyed (Between 0.01% and 100% in float)")]
-    [SerializeField] float chanceToSpawn = 75.0f;
+    [SerializeField, Range(0f, 100f)] float chanceToSpawn = 75.0f;
+
+    [Space(2)]
+
+    [SerializeField] bool isOnlySpawnedOnce = false;
 
     // Public properties
 
@@ -33,5 +37,7 @@ public class SpawnableItem : ScriptableObject
     public int MaxNumToSpawn => maxNumToSpawn;
 
     public GameObject ItemPrefab => itemPrefab;
+
+    public bool IsOnlySpawnedOnce => isOnlySpawnedOnce;
 
 }

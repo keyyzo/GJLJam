@@ -151,7 +151,7 @@ public class PlayerInventory : MonoBehaviour
 
         for (int i = 0; i < attackSlots.Length; i++)
         {
-            if (attackSlots[i] == null)
+            if (attackSlots[i] == null && attackSlots[i] != attackToAdd)
             {
                 attackSlots[i] = Instantiate(attackToAdd);
 

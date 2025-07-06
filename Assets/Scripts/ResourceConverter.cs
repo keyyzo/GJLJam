@@ -56,6 +56,7 @@ public class ResourceConverter : MonoBehaviour, IInteractable
     // Private variables
 
     bool canInteract = false;
+    bool hasInteracted = false;
     bool isMenuActive = false;
     bool isConversionItemActive = false;
     bool canBuy = true;
@@ -108,9 +109,23 @@ public class ResourceConverter : MonoBehaviour, IInteractable
             isMenuActive = true;
 
             converterMenu.SetActive(true);
+            promptedText.SetActive(false);
+
+            StartCoroutine(InteractedCooldownRoutine());
         }
 
-        
+        else if (canInteract && isMenuActive)
+        {
+            canInteract = false;
+            isMenuActive = false;
+
+            converterMenu.SetActive(false);
+            promptedText.SetActive(true);
+
+            StartCoroutine(InteractedCooldownRoutine());
+        }
+
+
     }
 
     public void ProcessInteractPrompt()
@@ -147,6 +162,8 @@ public class ResourceConverter : MonoBehaviour, IInteractable
         }
 
     }
+
+    
 
     #endregion
 
@@ -388,5 +405,12 @@ public class ResourceConverter : MonoBehaviour, IInteractable
         }
 
         canBuy = true;
+    }
+
+    IEnumerator InteractedCooldownRoutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        canInteract = true;
     }
 }

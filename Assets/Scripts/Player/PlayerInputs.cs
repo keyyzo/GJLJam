@@ -78,7 +78,19 @@ public class PlayerInputs : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        interact = context.ReadValueAsButton();
+        //interact = context.ReadValueAsButton();
+
+        
+
+        if (context.performed)
+        {
+            interact = true;
+        }
+
+        if (context.canceled)
+        {
+            interact = false;
+        }
     }
 
     public void OnReload(InputAction.CallbackContext context)
