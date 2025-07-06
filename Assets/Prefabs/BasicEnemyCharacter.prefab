@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5038147159002657414}
   - component: {fileID: 2991648712407974460}
   - component: {fileID: 6260585482144117259}
+  - component: {fileID: -7783568318160891050}
   m_Layer: 11
   m_Name: BasicEnemyCharacter
   m_TagString: Enemy
@@ -114,6 +115,20 @@ MonoBehaviour:
   maxNumOfResourceToDropOnDestroy: 3
   minRandomSpawnOffset: -2
   maxRandomSpawnOffset: 2
+--- !u!114 &-7783568318160891050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232531066546270962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7100c6f9535ba6439df8d23c1996fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppablePrefabs:
+  - {fileID: 11400000, guid: fcc9638b7158ee14489d5b3381c8c782, type: 2}
 --- !u!1 &615739875920241857
 GameObject:
   m_ObjectHideFlags: 0

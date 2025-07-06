@@ -29,11 +29,13 @@ public class BaseEnemy : MonoBehaviour, ISpawnable
     NavMeshAgent agent;
     PlayerController playerObject;
     BaseHealthComponent enemyHealthComponent;
+    BaseDropper baseDropper;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         enemyHealthComponent = GetComponent<BaseHealthComponent>();
+        baseDropper = GetComponent<BaseDropper>();
     }
 
     private void Start()
@@ -60,23 +62,28 @@ public class BaseEnemy : MonoBehaviour, ISpawnable
         enemyDamage += newDamageVal;
     }
 
+    //public void ProcessSpawn()
+    //{
+    //    if (resourcePrefab)
+    //    {
+    //        int randomAmountToSpawn = Random.Range(minNumOfResourceToDropOnDestroy, maxNumOfResourceToDropOnDestroy);
+
+    //        for (int i = 0; i < randomAmountToSpawn; i++)
+    //        {
+    //            Vector3 tempSpawnPos = GenerateRandomSpawnPosition();
+
+    //            Resource resourceToSpawn = Instantiate(resourcePrefab, tempSpawnPos, Quaternion.identity).GetComponent<Resource>();
+
+
+    //        }
+    //    }
+
+
+    //}
+
     public void ProcessSpawn()
-    {
-        if (resourcePrefab)
-        {
-            int randomAmountToSpawn = Random.Range(minNumOfResourceToDropOnDestroy, maxNumOfResourceToDropOnDestroy);
-
-            for (int i = 0; i < randomAmountToSpawn; i++)
-            {
-                Vector3 tempSpawnPos = GenerateRandomSpawnPosition();
-
-                Resource resourceToSpawn = Instantiate(resourcePrefab, tempSpawnPos, Quaternion.identity).GetComponent<Resource>();
-
-
-            }
-        }
-
-
+    { 
+        baseDropper.ProcessSpawn();
     }
 
     protected Vector3 GenerateRandomSpawnPosition()
